@@ -1,209 +1,390 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Direct Download Almost Anything</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="download,movies,games,music,softwares,epub,ebooks,pdf,mp3,songs,direct download">
-	<meta name="description" content="Find direct download links for about anything. TV Series, Movies, Books, music, softwares, games anything. Take advantage of powerful advanced search of Google.">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<style type="text/css">
-		pre {
-			margin: 1em 0;
-			text-align: center;
-		}
-		.black-background {background-color:#ffffff;}
-		.white {color:#000000;}
-		#egbutton {text-transform:capitalize;}
-		body {
-			padding-top: 70px;
-			padding-bottom: 60px;
-		}
-		.footer {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        background-color: #f8f8f8;
-        border-top: 1px solid #e7e7e7;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-		.footer-content {
-			padding: 15px;
-			text-align: center;
-			color: #777;
-		}
-		.navbar-brand {
-			font-weight: bold;
-		}
-		.container {
-			margin-top: 20px;
-		}
-		.header-content {
-			margin-bottom: 20px;
-			text-align: center;
-		}
-		.header-content h2 {
-			margin: 10px 0;
-			color: #333;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Direct Download Anything</title>
+    <meta name="description" content="Search smarter. Get direct download links for movies, books, music, software & games using enhanced Google & FilePursuit operators.">
+    <meta name="keywords" content="direct download, search engine, movies, games, ebooks, software, file pursuit, google dork">
+    
+    <!-- Preconnect & Fonts: Plus Jakarta Sans (Corporate Trust DNA) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- TailwindCSS + basic utilities + custom layered styles (Design System aligned) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide icons (modern, consistent) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Override Tailwind defaults to enforce design tokens & colored shadows */
+        * {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #F8FAFC;  /* Slate 50 — trust background */
+            scroll-behavior: smooth;
+        }
+        /* Custom colored shadows & 3D transform utilities */
+        .shadow-soft-brand {
+            box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+        }
+        .shadow-hover-brand {
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.15), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+        }
+        .shadow-button {
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(105deg, #4F46E5 0%, #7C3AED 100%);
+        }
+        .hover-lift {
+            transition: all 0.2s ease-out;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(79, 70, 229, 0.2);
+            border-color: #C7D2FE;
+        }
+        .blob-gradient {
+            background: radial-gradient(circle at 30% 40%, rgba(79,70,229,0.3) 0%, rgba(124,58,237,0.2) 60%, transparent 80%);
+            filter: blur(60px);
+        }
+        .isometric-card {
+            transform: perspective(1200px) rotateX(2deg) rotateY(-6deg);
+            transition: transform 0.3s ease;
+        }
+        .isometric-card:hover {
+            transform: perspective(1200px) rotateX(0deg) rotateY(-3deg) translateY(-5px);
+        }
+        .focus-ring-custom:focus {
+            outline: none;
+            ring: 2px solid #4F46E5;
+            ring-offset: 2px;
+            border-color: #4F46E5;
+        }
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.5; transform: scale(1);}
+            50% { opacity: 0.8; transform: scale(1.02);}
+        }
+        .animate-gentle-pulse {
+            animation: gentlePulse 6s infinite ease-in-out;
+        }
+        /* custom dropdown + responsive adjustments */
+        .dropdown-custom-item {
+            transition: background 0.15s;
+        }
+        .footer-links a {
+            transition: color 0.2s;
+        }
+    </style>
 </head>
-<body onload="openDropdown();">
+<body class="antialiased">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Direct Download</a>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="https://sawwqib.vercel.app" data-toggle="modal" data-target="#aboutModal">Contact</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
+    <!-- Enhanced Navigation: Clean, transparent glass + solid on scroll (no heavy background by default) -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Brand: with gradient accent -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center shadow-md">
+                        <span class="text-white font-extrabold text-sm">D</span>
+                    </div>
+                    <span class="font-extrabold text-xl tracking-tight text-slate-800">D<span class="gradient-text">DA</span></span>
+                </a>
+                
+                <!-- Desktop nav: minimal + contact link refined -->
+                <div class="hidden md:flex items-center gap-7">
+                    <a href="#how-it-works" class="text-slate-600 font-medium text-sm hover:text-indigo-600 transition">How it works</a>
+                    <a href="#" id="contactTriggerBtn" class="text-slate-600 font-medium text-sm hover:text-indigo-600 transition">Contact</a>
+                    <!-- subtle "New" badge style -->
+                    <div class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-indigo-100 shadow-sm">
+                        ⚡ v2.0
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button (simple fallback) but we keep minimal -->
+                <button class="md:hidden text-slate-600 focus:outline-none" id="mobileMenuBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile dropdown (simple) -->
+        <div id="mobileMenuPanel" class="hidden md:hidden bg-white border-b border-slate-200 px-5 pb-4 pt-2 shadow-md">
+            <div class="flex flex-col space-y-3">
+                <a href="#how-it-works" class="text-slate-700 font-medium py-2">How it works</a>
+                <a href="#" id="mobileContactBtn" class="text-slate-700 font-medium py-2">Contact</a>
+            </div>
+        </div>
+    </header>
 
-<div class="header-content">
-	<div class="container">
-		<h1>Get Direct Download Links For Almost Anything</h1>
-		<h2>TV Series, Movies, Books, Music, Software & Games</h2>
-	</div>
-</div>
+    <!-- Main hero + search section (atmospheric blobs & dimensional depth) -->
+    <main class="pt-24 md:pt-32 relative overflow-x-hidden">
+        <!-- Background blobs: Corporate Trust DNA -->
+        <div class="fixed inset-0 pointer-events-none -z-5 overflow-hidden">
+            <div class="absolute top-[-20%] left-[-15%] w-[500px] h-[500px] bg-indigo-200/30 rounded-full blur-3xl animate-gentle-pulse"></div>
+            <div class="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] bg-violet-200/20 rounded-full blur-3xl"></div>
+            <div class="absolute top-[40%] right-[20%] w-[400px] h-[400px] bg-indigo-100/30 blur-3xl"></div>
+        </div>
 
-<div class="container">
-<form id="searchForm" onsubmit="event.preventDefault(); startSearch();">
-	<input type="hidden" name="fileType" value="" id="fileType">
-	<input type="hidden" name="resType" value="" id="resType">
-	<input type="hidden" name="engine" value="google" id="engine">
-	<div class="row" align="center">
-		<div class="col-lg-2"></div>
-		<div class="col-lg-8">
-			<div class="input-group">
-				<div class="input-group-btn">
-					<button id="ddbutton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose Filetype <span id="message" class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#" onclick="setFiletype('mkv|mp4|avi|mov|mpg|wmv|divx|mpeg', 'TV/Movies', 'video', 'film')"><span class="glyphicon glyphicon-film" aria-hidden="true"></span> TV/Movies/Video</a></li>
-						<li><a href="#" onclick="setFiletype('MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|TCR|DOC|DOCX', 'Books', 'ebook', 'book')"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> Books</a></li>
-						<li><a href="#" onclick="setFiletype('mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod', 'Music', 'audio', 'music')"><span class="glyphicon glyphicon-music" aria-hidden="true"></span> Music</a></li>
-						<li><a href="#" onclick="setFiletype('exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk', 'Software/ISO/DMG/Games', 'archive', 'cd')"><span class="glyphicon glyphicon-cd" aria-hidden="true"></span> Software/ISO/DMG/Games</a></li>
-						<li><a href="#" onclick="setFiletype('jpg|png|bmp|gif|tif|tiff|psd', 'Images', 'picture', 'picture')"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span> Images</a></li>
-						<li><a href="#" onclick="setFiletype('-1', 'Other', 'all', 'asterisk')"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> Other</a></li>
-					</ul>
-				</div>
-				<div class="input-group-btn">
-					<button id="egbutton" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Google <span id="message" class="caret"></span></button>
-					<ul class="dropdown-menu">
-						<li><a href="#" onclick="setEngine('google')">Google</a></li>
-						<li><a href="#" onclick="setEngine('googol')">Googol</a></li>
-						<li><a href="#" onclick="setEngine('startpage')">Startpage</a></li>
-						<li><a href="#" onclick="setEngine('searx')">Searx</a></li>
-						<li><a href="#" onclick="setEngine('filepursuit')">FilePursuit</a></li>
-					</ul>
-				</div>
-				<input type="text" name="query" value="" id="query" class="form-control" placeholder="Search anything e.g The.Blacklist.S01.E01">
-				<span class="input-group-btn">
-					<a href="#" onclick="startSearch();" class="btn btn-default black-background white"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
-				</span>
-			</div>
-		</div>
-		<div class="col-lg-2">
-		</div>
-	</div>
-</form>
-
-<footer class="footer">
-    <div class="container text-center">
-        <p>Made With &hearts; by Saqib</p>
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+            <!-- Hero content: split headline + gradient text -->
+            <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
+                <div class="inline-flex items-center gap-2 bg-indigo-50/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-500 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-600"></span>
+                    </span>
+                    <span class="text-indigo-700 text-xs font-semibold tracking-wide">AI-POWERED DIRECT SEARCH</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.2]">
+                    Get Direct Download Links<br>
+                    <span class="gradient-text">For Almost Anything</span>
+                </h1>
+                <p class="text-slate-500 text-lg md:text-xl mt-5 max-w-2xl mx-auto leading-relaxed">
+                    Movies, books, music, software, games — leverage advanced Google dorks & FilePursuit to bypass clutter. Direct & fast.
+                </p>
+            </div>
+            
+            <!-- SEARCH CARD: Elevated, isometric subtlety, modern inputs -->
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-soft-brand p-5 md:p-7 transition-all card-hover">
+                    <form id="searchForm" class="space-y-5">
+                        <input type="hidden" id="fileType" name="fileType" value="">
+                        <input type="hidden" id="resType" name="resType" value="">
+                        <input type="hidden" id="engine" name="engine" value="google">
+                        
+                        <!-- Double dropdown row: responsive flex wrap -->
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <!-- Filetype dropdown -->
+                            <div class="relative flex-1">
+                                <button id="ddbutton" type="button" class="w-full flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 font-medium text-sm hover:bg-slate-100 transition shadow-sm">
+                                    <span class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7l-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z"/></svg>
+                                        <span id="ddbuttonText">Choose Filetype</span>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                                <ul id="filetypeDropdown" class="absolute hidden left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-lg z-30 py-2 overflow-hidden">
+                                    <li><a href="#" data-type="mkv|mp4|avi|mov|mpg|wmv|divx|mpeg" data-label="TV/Movies/Video" data-restype="video" data-glyph="film" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2 text-sm"><span class="text-indigo-500">🎬</span> TV/Movies/Video</a></li>
+                                    <li><a href="#" data-type="MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|TCR|DOC|DOCX" data-label="Books" data-restype="ebook" data-glyph="book" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2"><span class="text-indigo-500">📚</span> Books</a></li>
+                                    <li><a href="#" data-type="mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod" data-label="Music" data-restype="audio" data-glyph="music" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2"><span class="text-indigo-500">🎵</span> Music</a></li>
+                                    <li><a href="#" data-type="exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk" data-label="Software/ISO/Games" data-restype="archive" data-glyph="cd" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2"><span class="text-indigo-500">💿</span> Software/ISO/Games</a></li>
+                                    <li><a href="#" data-type="jpg|png|bmp|gif|tif|tiff|psd" data-label="Images" data-restype="picture" data-glyph="image" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2"><span class="text-indigo-500">🖼️</span> Images</a></li>
+                                    <li><a href="#" data-type="-1" data-label="Other (All files)" data-restype="all" data-glyph="asterisk" class="block px-4 py-2 text-slate-700 hover:bg-indigo-50 flex items-center gap-2"><span class="text-indigo-500">✨</span> Other</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Search Engine dropdown -->
+                            <div class="relative flex-1">
+                                <button id="egbutton" type="button" class="w-full flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 font-medium text-sm hover:bg-slate-100 transition shadow-sm">
+                                    <span class="flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 0 0 20 15 15 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                                        <span id="engineButtonText">Google</span>
+                                    </span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </button>
+                                <ul id="engineDropdown" class="absolute hidden left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-lg z-30 py-2">
+                                    <li><a href="#" data-engine="google" class="block px-4 py-2 hover:bg-indigo-50 text-slate-700">Google</a></li>
+                                    <li><a href="#" data-engine="googol" class="block px-4 py-2 hover:bg-indigo-50 text-slate-700">Googol</a></li>
+                                    <li><a href="#" data-engine="startpage" class="block px-4 py-2 hover:bg-indigo-50 text-slate-700">Startpage</a></li>
+                                    <li><a href="#" data-engine="searx" class="block px-4 py-2 hover:bg-indigo-50 text-slate-700">Searx</a></li>
+                                    <li><a href="#" data-engine="filepursuit" class="block px-4 py-2 hover:bg-indigo-50 text-slate-700">FilePursuit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Search input group with action -->
+                        <div class="relative">
+                            <div class="flex items-center bg-white rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-indigo-500/30 focus-within:border-indigo-400 transition shadow-sm">
+                                <input type="text" id="query" class="w-full py-3.5 px-5 bg-transparent text-slate-800 placeholder:text-slate-400 outline-none text-base font-medium rounded-l-xl" placeholder="e.g., The.Blacklist.S01 or Dune.2022.1080p or Taylor Swift discography">
+                                <button type="submit" id="searchBtn" class="bg-gradient-primary hover:opacity-90 transition-all text-white font-semibold px-6 py-3 rounded-r-xl mr-1 flex items-center gap-2 shadow-button hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <span>Search</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-2 text-center">⚡ Uses advanced operators · Direct index of files · Privacy-focused engines</p>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Feature highlight: 3D isometric card + trust signals -->
+            <div id="how-it-works" class="mt-24 mb-16">
+                <div class="text-center mb-10">
+                    <span class="text-indigo-600 font-semibold tracking-wide text-sm bg-indigo-50 px-4 py-1 rounded-full">Intelligent Search</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-3">Designed for <span class="gradient-text">Speed & Precision</span></h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-7">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-soft-brand card-hover isometric-card">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center mb-5">🔍</div>
+                        <h3 class="text-xl font-bold text-slate-800">Google Dorks</h3>
+                        <p class="text-slate-500 mt-2 leading-relaxed">Uses intitle:"index.of" + filetype filters to reveal direct download directories.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-soft-brand card-hover isometric-card" style="transform: perspective(1200px) rotateX(2deg) rotateY(6deg);">
+                        <div class="w-12 h-12 rounded-xl bg-violet-100 text-violet-600 flex items-center justify-center mb-5">📀</div>
+                        <h3 class="text-xl font-bold text-slate-800">FilePursuit</h3>
+                        <p class="text-slate-500 mt-2 leading-relaxed">Dedicated file search engine with rich indexing of media & software.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-soft-brand card-hover isometric-card">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-5">⚡</div>
+                        <h3 class="text-xl font-bold text-slate-800">One-Click Access</h3>
+                        <p class="text-slate-500 mt-2 leading-relaxed">Instant redirection to results — no trackers, no intermediate pages.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer: redesigned with corporate trust, gradients and multiple columns -->
+    <footer class="bg-white border-t border-slate-200 mt-20 relative z-20">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-12 md:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center"><span class="text-white font-bold text-sm">D</span></div>
+                        <span class="font-extrabold text-xl text-slate-800">Direct<span class="gradient-text">Download Anything</span></span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed">Direct download utility engine. Empowering users with transparent file discovery.</p>
+                </div>
+                <div>
+                    
+                </div>
+                <div>
+                    
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-3">Trust & Legal</h4>
+                    <p class="text-slate-400 text-xs">Direct Download Anything does not host any files. All results are sourced from public search engines. Use responsibly.</p>
+                    <div class="flex gap-4 mt-4">
+                        </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 mt-10 pt-6 text-center text-slate-400 text-xs">
+                <p>Made with &hearts; by Saqib</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Contact modal (simple but consistent) -->
+    <div id="contactModal" class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-all">
+        <div class="bg-white max-w-md w-full mx-4 rounded-2xl shadow-2xl p-6 border border-slate-100">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-slate-800">Contact Support</h3>
+                <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600">&times;</button>
+            </div>
+            <p class="text-slate-500 text-sm mb-4">For inquiries, feedback or partnership: <br> <strong class="text-indigo-600">https://sawwqib.rf.gd</strong></p>
+            <button class="w-full bg-gradient-primary text-white py-2 rounded-xl font-semibold hover:shadow-md transition" id="modalCloseBtn">Got it</button>
+        </div>
     </div>
-</footer>
 
-<script type="text/javascript">
-	var logos = {
-		google:'',
-		googol:'',
-		startpage:'',
-		filepursuit:''
-	};
-	function setFiletype(fileType, buttonData, resType, glyph) {
-		var defaultString = 'Search anything';
-		if (fileType==-1) {
-			fileType="";
-		}
-		switch(glyph) {
-			case 'film':
-				$("#query").prop('placeholder',defaultString+' eg. The.Blacklist.S01');
-				break;
-			case 'music':
-				$("#query").prop('placeholder',defaultString+' eg. K.Flay discography');
-				break;
-			case 'book':
-				$("#query").prop('placeholder',defaultString+' eg. 1985');
-				break;
-			case 'cd':
-				$("#query").prop('placeholder',defaultString+' eg. GTA V');
-				break;
-			case 'picture':
-				$("#query").prop('placeholder',defaultString+' eg. Donald Trump');
-				break;
-			case 'asterisk':
-				$("#query").prop('placeholder',defaultString);
-				break;
-		}
-		$("#fileType").prop('value',fileType);
-		$("#resType").prop('value',resType);
-		$("#ddbutton").html('<span class="glyphicon glyphicon-'+glyph+'" aria-hidden="true"></span> '+buttonData+' <span class="caret"></span>');
-		$("#query").focus();
-	}
-	function setEngine(engine) {
-		$("#engine").prop('value',engine);
-		$("#logo").prop('src',logos[engine]);
-		$("#egbutton").html('<span class="glyphicon glyphicon-search" aria-hidden="true"></span> '+engine+' <span class="caret"></span>');
-		$("#query").focus();
-	}
-	function startSearch (engine = '') {
-		var query = document.getElementById('query').value;
-		var fileType = document.getElementById('fileType').value;
-		var resType = document.getElementById('resType').value;
-		var engine = document.getElementById('engine').value;
-		if (fileType=="") {
-			if(engine=="filepursuit") {
-				fileType = "all";
-			}
-			var finalQuery = query+" -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)";
-		} else {
-			var finalQuery = query+" +("+fileType+") -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)";
-		}
-		switch(engine) {
-			case 'google':
-				var url = "https://www.google.com/search?q="+encodeURIComponent(finalQuery);
-				break;
-			case 'googol':
-				var url = "https://googol.warriordudimanche.net/?q="+encodeURIComponent(finalQuery);
-				break;
-			case 'startpage':
-				var url = "https://www.startpage.com/do/dsearch?query="+encodeURIComponent(finalQuery);
-				break;
-			case 'searx':
-				var url = "https://searx.me/?q="+encodeURIComponent(finalQuery);
-				break;
-			case 'filepursuit':
-				var url = "https://filepursuit.com/search/"+query.replace(/ /g,"+")+"/type/"+resType;
-				break;
-		}
-		console.log(url);
-		window.open(url, '_blank');
-	}
-	function openDropdown(){
-		$('#ddbutton').click();
-	}
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<script async="async" data-cfasync="false" src="//pl27594667.revenuecpmgate.com/c2bb6242d420802c248376f502eccfd4/invoke.js"></script>
-<div id="container-c2bb6242d420802c248376f502eccfd4"></div>
-	<script type='text/javascript' src='//pl27594650.revenuecpmgate.com/e4/a4/e7/e4a4e7d2df88ee0c136cd87b589f7c0f.js'></script>
+    <script>
+        // dropdown management + search logic, adapted from legacy but enhanced.
+        const fileTypeInput = document.getElementById('fileType');
+        const resTypeInput = document.getElementById('resType');
+        const engineInput = document.getElementById('engine');
+        const queryInput = document.getElementById('query');
+        const ddButton = document.getElementById('ddbutton');
+        const ddMenu = document.getElementById('filetypeDropdown');
+        const engineBtn = document.getElementById('egbutton');
+        const engineMenu = document.getElementById('engineDropdown');
+        const ddTextSpan = document.getElementById('ddbuttonText');
+        const engineTextSpan = document.getElementById('engineButtonText');
+        
+        function closeAllDropdowns() { ddMenu.classList.add('hidden'); engineMenu.classList.add('hidden'); }
+        ddButton.addEventListener('click', (e) => { e.stopPropagation(); ddMenu.classList.toggle('hidden'); engineMenu.classList.add('hidden'); });
+        engineBtn.addEventListener('click', (e) => { e.stopPropagation(); engineMenu.classList.toggle('hidden'); ddMenu.classList.add('hidden'); });
+        document.addEventListener('click', () => { closeAllDropdowns(); });
+        
+        document.querySelectorAll('#filetypeDropdown a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const ftype = link.getAttribute('data-type');
+                const label = link.getAttribute('data-label');
+                const restype = link.getAttribute('data-restype');
+                const glyph = link.getAttribute('data-glyph');
+                fileTypeInput.value = (ftype === '-1') ? '' : ftype;
+                resTypeInput.value = restype;
+                ddTextSpan.innerHTML = label;
+                let placeholder = 'Search anything e.g. The.Blacklist.S01';
+                if (glyph === 'film') placeholder = 'Search movies / series e.g. Dune.2021';
+                else if (glyph === 'book') placeholder = 'Search ebooks e.g. Atomic Habits PDF';
+                else if (glyph === 'music') placeholder = 'Search music e.g. K.Flay discography';
+                else if (glyph === 'cd') placeholder = 'Search software/games e.g. Adobe Photoshop';
+                else placeholder = 'Search anything...';
+                queryInput.placeholder = placeholder;
+                closeAllDropdowns();
+            });
+        });
+        
+        document.querySelectorAll('#engineDropdown a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const eng = link.getAttribute('data-engine');
+                engineInput.value = eng;
+                engineTextSpan.innerText = eng.charAt(0).toUpperCase() + eng.slice(1);
+                closeAllDropdowns();
+            });
+        });
+        
+        function startSearch() {
+            let query = queryInput.value.trim();
+            if (!query) { alert('Please enter a search term.'); return; }
+            let fileType = fileTypeInput.value;
+            let resType = resTypeInput.value;
+            let engine = engineInput.value;
+            let finalQuery = "";
+            if (engine !== 'filepursuit') {
+                if (fileType === "") {
+                    finalQuery = `${query} -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
+                } else {
+                    finalQuery = `${query} +(${fileType}) -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
+                }
+            } else {
+                finalQuery = query;
+            }
+            let url = "";
+            switch(engine) {
+                case 'google': url = `https://www.google.com/search?q=${encodeURIComponent(finalQuery)}`; break;
+                case 'googol': url = `https://googol.warriordudimanche.net/?q=${encodeURIComponent(finalQuery)}`; break;
+                case 'startpage': url = `https://www.startpage.com/do/dsearch?query=${encodeURIComponent(finalQuery)}`; break;
+                case 'searx': url = `https://searx.me/?q=${encodeURIComponent(finalQuery)}`; break;
+                case 'filepursuit': url = `https://filepursuit.com/search/${query.replace(/ /g,"+")}/type/${resType || 'all'}`; break;
+            }
+            window.open(url, '_blank');
+        }
+        
+        document.getElementById('searchForm').addEventListener('submit', (e) => { e.preventDefault(); startSearch(); });
+        document.getElementById('searchBtn').addEventListener('click', () => startSearch());
+        
+        // modal logic
+        const modal = document.getElementById('contactModal');
+        function openModal() { modal.classList.remove('hidden'); }
+        document.querySelectorAll('#contactTriggerBtn, #mobileContactBtn, #footerContactBtn').forEach(el => el?.addEventListener('click', (e) => { e.preventDefault(); openModal(); }));
+        document.getElementById('closeModalBtn')?.addEventListener('click', () => modal.classList.add('hidden'));
+        document.getElementById('modalCloseBtn')?.addEventListener('click', () => modal.classList.add('hidden'));
+        
+        // mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobilePanel = document.getElementById('mobileMenuPanel');
+        mobileBtn?.addEventListener('click', () => { mobilePanel.classList.toggle('hidden'); });
+        
+        // lucide icons init
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    </script>
 </body>
 </html>
